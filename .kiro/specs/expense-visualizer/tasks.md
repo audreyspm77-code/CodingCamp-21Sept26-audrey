@@ -127,8 +127,8 @@ Build a purely client-side single-page expense tracker using vanilla HTML, CSS, 
 - [ ] 7. Checkpoint — Validate full application wiring
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Style with CSS
-  - [ ] 8.1 Create `css/styles.css` with responsive layout
+- [x] 8. Style with CSS
+  - [x] 8.1 Create `css/styles.css` with responsive layout
     - Style the overall page layout (centered, max-width container)
     - Style `#expense-form` with clear field labels and spacing
     - Style `.field-error` elements (visible in red, hidden when empty)

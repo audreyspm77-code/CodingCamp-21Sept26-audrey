@@ -1,0 +1,545 @@
+/* Expense Visualizer — styles.css */
+
+/* ============================================================
+   1. CSS Custom Properties (Design Tokens)
+   ============================================================ */
+:root {
+  --color-primary:        #4f6ef7;
+  --color-primary-dark:   #3a56d4;
+  --color-primary-light:  #eef0fe;
+  --color-danger:         #d9281e;
+  --color-danger-bg:      #fdf2f2;
+  --color-danger-banner:  #d9281e;
+  --color-success:        #1e7a3e;
+  --color-text:           #1a1a1a;
+  --color-text-muted:     #5a5a5a;
+  --color-border:         #d0d5dd;
+  --color-bg:             #f7f8fc;
+  --color-surface:        #ffffff;
+  --color-balance:        #4f6ef7;
+
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base:  1rem;       /* 16px */
+  --font-size-sm:    0.875rem;   /* 14px */
+  --font-size-lg:    1.125rem;   /* 18px */
+  --font-size-xl:    1.5rem;     /* 24px */
+  --font-size-2xl:   2rem;       /* 32px */
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10);
+
+  --spacing-xs:  0.25rem;
+  --spacing-sm:  0.5rem;
+  --spacing-md:  1rem;
+  --spacing-lg:  1.5rem;
+  --spacing-xl:  2rem;
+  --spacing-2xl: 3rem;
+
+  --container-max: 960px;
+  --list-max-height: 360px;
+  --chart-max-width: 420px;
+}
+
+/* ============================================================
+   2. Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  padding: var(--spacing-md);
+}
+
+/* ============================================================
+   3. Utility
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================
+   4. Container
+   ============================================================ */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============================================================
+   5. Header & Balance
+   ============================================================ */
+header {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.balance-section {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.balance-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#balance-amount {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-balance);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+#balance-amount::before {
+  content: "$";
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  vertical-align: super;
+  margin-right: 1px;
+}
+
+/* ============================================================
+   6. Main Layout — two-column on wider screens
+   ============================================================ */
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+/* ============================================================
+   7. Shared Section Card
+   ============================================================ */
+.form-section,
+.chart-section,
+.list-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+}
+
+.form-section h2,
+.chart-section h2,
+.list-section h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-primary-light);
+}
+
+/* ============================================================
+   8. Form
+   ============================================================ */
+#expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.field-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.field-group input,
+.field-group select {
+  width: 100%;
+  padding: 0.6rem var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Custom arrow for <select> */
+.field-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a5a5a' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+}
+
+.field-group input:focus,
+.field-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.20);
+}
+
+.field-group input::placeholder {
+  color: #a0aec0;
+}
+
+/* Input invalid state (when browser native validation fires) */
+.field-group input:not(:placeholder-shown):invalid {
+  border-color: var(--color-danger);
+}
+
+/* ============================================================
+   9. Field Errors
+   ============================================================ */
+.field-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  font-weight: 500;
+  min-height: 0;
+  line-height: 1.4;
+  /* Hidden when empty — collapses to zero height */
+}
+
+.field-error:empty {
+  display: none;
+}
+
+/* ============================================================
+   10. Storage Error Banner
+   ============================================================ */
+.storage-error {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-danger-banner);
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.storage-error:empty {
+  display: none;
+}
+
+/* ============================================================
+   11. Submit Button
+   ============================================================ */
+#submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.7rem var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  margin-top: var(--spacing-xs);
+}
+
+#submit-btn:hover {
+  background-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+#submit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.40);
+}
+
+#submit-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* ============================================================
+   12. Chart Section
+   ============================================================ */
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--chart-max-width);
+  margin: 0 auto;
+  position: relative;
+}
+
+#spending-chart {
+  width: 100% !important;
+  height: auto !important;
+  max-width: var(--chart-max-width);
+}
+
+.chart-unavailable {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--spacing-xl);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+/* ============================================================
+   13. Transaction List — Req 2.2 (scrollable)
+   ============================================================ */
+#transaction-list {
+  list-style: none;
+  max-height: var(--list-max-height);
+  overflow-y: auto;
+  /* Custom scrollbar (non-Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-right: var(--spacing-xs); /* keep content clear of scrollbar */
+}
+
+#transaction-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#transaction-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#transaction-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Each transaction item */
+#transaction-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0.6rem var(--spacing-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  transition: box-shadow 0.12s ease;
+  flex-wrap: wrap;
+}
+
+#transaction-list li:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Transaction name */
+.transaction-name {
+  flex: 1 1 auto;
+  font-weight: 600;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Transaction amount */
+.transaction-amount {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.transaction-amount::before {
+  content: "$";
+  font-size: 0.75em;
+  vertical-align: super;
+  margin-right: 1px;
+  font-weight: 600;
+}
+
+/* Category badge */
+.transaction-category {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.transaction-category[data-category="Food"]      { background: #fef3c7; color: #92400e; }
+.transaction-category[data-category="Transport"] { background: #dbeafe; color: #1e40af; }
+.transaction-category[data-category="Fun"]       { background: #fce7f3; color: #9d174d; }
+
+/* Delete button */
+.delete-btn {
+  flex-shrink: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-danger);
+  background: transparent;
+  border: 1.5px solid var(--color-danger);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+
+.delete-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(217, 40, 30, 0.30);
+}
+
+/* Empty state placeholder */
+#transaction-list .empty-state {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xl) var(--spacing-md);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  list-style: none;
+}
+
+/* ============================================================
+   14. Responsive Breakpoints — Req 7.3
+   ============================================================ */
+
+/* --- 320px (mobile, default — already single column above) --- */
+@media (max-width: 359px) {
+  :root {
+    --font-size-2xl: 1.6rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+  }
+
+  .form-section,
+  .chart-section,
+  .list-section {
+    padding: var(--spacing-md);
+  }
+}
+
+/* --- 480px (larger mobile) --- */
+@media (min-width: 480px) {
+  body {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* --- 768px (tablet) --- */
+@media (min-width: 768px) {
+  body {
+    padding: var(--spacing-xl);
+  }
+
+  main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "form  chart"
+      "list  list";
+  }
+
+  .form-section  { grid-area: form; }
+  .chart-section { grid-area: chart; }
+  .list-section  { grid-area: list; }
+
+  :root {
+    --list-max-height: 400px;
+  }
+}
+
+/* --- 1024px (small desktop) --- */
+@media (min-width: 1024px) {
+  body {
+    padding: var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  :root {
+    --list-max-height: 440px;
+  }
+}
+
+/* --- 1280px (desktop) --- */
+@media (min-width: 1280px) {
+  main {
+    grid-template-columns: 380px 1fr;
+    grid-template-areas:
+      "form  chart"
+      "form  list";
+    align-items: start;
+  }
+
+  .form-section {
+    /* sticky form on taller viewports */
+    position: sticky;
+    top: var(--spacing-xl);
+  }
+
+  :root {
+    --list-max-height: 480px;
+  }
+}
+
+/* --- 1920px (wide / ultrawide) --- */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1200px;
+    --font-size-base: 1.0625rem; /* slight bump for large screens */
+  }
+}
